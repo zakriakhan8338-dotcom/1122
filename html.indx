@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXORA GAMING — Solar Bio-Mech Universe</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#05050A',
+                        charcoal: '#0E1118',
+                        titanium: '#161B22',
+                        emerald: {
+                            DEFAULT: '#00FF88',
+                            dark: '#00CC6A',
+                            light: '#66FFB2'
+                        },
+                        amber: {
+                            DEFAULT: '#FF9900',
+                            dark: '#CC7A00',
+                            light: '#FFB333'
+                        }
+                    },
+                    fontFamily: {
+                        orbitron: ['Orbitron', 'sans-serif'],
+                        rajdhani: ['Rajdhani', 'sans-serif'],
+                        poppins: ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts: Orbitron, Rajdhani, Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Poppins:wght@300;400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #05050A;
+            color: #FFFFFF;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4, h5, h6, .font-orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+        .font-rajdhani {
+            font-family: 'Rajdhani', sans-serif;
+        }
+        /* Bio-Mech Holographic Glassmorphism */
+        .bio-glass {
+            background: rgba(14, 17, 24, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 255, 136, 0.15);
+            box-shadow: inset 0 0 15px rgba(0, 255, 136, 0.03);
+        }
+        .bio-glass:hover {
+            border-color: rgba(255, 153, 0, 0.4);
+            box-shadow: 0 0 30px rgba(255, 153, 0, 0.15), inset 0 0 20px rgba(255, 153, 0, 0.05);
+        }
+        .emerald-glow {
+            box-shadow: 0 0 35px rgba(0, 255, 136, 0.35);
+        }
+        .amber-glow {
+            box-shadow: 0 0 35px rgba(255, 153, 0, 0.35);
+        }
+        .text-bio-gradient {
+            background: linear-gradient(135deg, #00FF88 0%, #FF9900 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .bg-hex-grid {
+            background-image: linear-gradient(30deg, rgba(0, 255, 136, 0.03) 12%, transparent 12.5%, transparent 87%, rgba(0, 255, 136, 0.03) 87.5%, rgba(0, 255, 136, 0.03)),
+                              linear-gradient(150deg, rgba(0, 255, 136, 0.03) 12%, transparent 12.5%, transparent 87%, rgba(0, 255, 136, 0.03) 87.5%, rgba(0, 255, 136, 0.03)),
+                              linear-gradient(30deg, rgba(255, 153, 0, 0.03) 12%, transparent 12.5%, transparent 87%, rgba(255, 153, 0, 0.03) 87.5%, rgba(255, 153, 0, 0.03)),
+                              linear-gradient(150deg, rgba(255, 153, 0, 0.03) 12%, transparent 12.5%, transparent 87%, rgba(255, 153, 0, 0.03) 87.5%, rgba(255, 153, 0, 0.03));
+            background-size: 80px 140px;
+            background-position: 0 0, 0 0, 40px 70px, 40px 70px;
+        }
+        /* Holographic Scanline Effect */
+        .scanline::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background-size: 100% 4px;
+            z-index: 10;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #05050A;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #00FF88;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FF9900;
+        }
+    </style>
+</head>
+<body class="bg-obsidian text-white bg-hex-grid relative selection:bg-emerald selection:text-obsidian">
+
+    <!-- Toast Notification Banner -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-32 opacity-0 transition-all duration-300 bio-glass px-6 py-4 rounded-xl flex items-center space-x-3 shadow-2xl border-emerald/50">
+        <i data-lucide="zap" class="w-6 h-6 text-emerald"></i>
+        <div>
+            <h4 id="toast-title" class="font-orbitron font-bold text-sm text-emerald">Bio-System Ready</h4>
+            <p id="toast-message" class="text-xs text-slate-300">Action executed successfully.</p>
+        </div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="fixed top-0 left-0 w-full z-40 bio-glass border-b border-emerald/20 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald to-amber p-0.5 flex items-center justify-center emerald-glow group-hover:rotate-45 transition-transform duration-500">
+                    <div class="w-full h-full bg-obsidian rounded-[10px] flex items-center justify-center">
+                        <i data-lucide="cpu" class="w-5 h-5 text-emerald group-hover:text-amber transition-colors"></i>
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-orbitron font-black text-xl tracking-widest text-white">NEXORA</span>
+                    <span class="text-[10px] font-rajdhani tracking-[0.25em] text-emerald font-bold -mt-1 uppercase">Bio-Mech Nexus</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-8 font-rajdhani text-base font-semibold tracking-wider">
+                <a href="#hero" class="text-emerald hover:text-amber transition-colors">HOME</a>
+                <a href="#games" class="text-slate-300 hover:text-emerald transition-colors">CATALOG</a>
+                <a href="#tournaments" class="text-slate-300 hover:text-emerald transition-colors">ARENA</a>
+                <a href="#leaderboard" class="text-slate-300 hover:text-emerald transition-colors">RANKINGS</a>
+                <a href="#news" class="text-slate-300 hover:text-emerald transition-colors">INTEL</a>
+                <a href="#community" class="text-slate-300 hover:text-emerald transition-colors">MATRIX</a>
+                <a href="#profile" class="text-slate-300 hover:text-emerald transition-colors">DASHBOARD</a>
+            </nav>
+
+            <!-- Action CTAs & Mobile Toggle -->
+            <div class="flex items-center space-x-4">
+                <button onclick="openModal('authModal')" class="hidden sm:inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl font-orbitron text-xs font-bold uppercase tracking-wider bg-emerald hover:bg-emerald-dark text-obsidian emerald-glow transition-all duration-300 transform hover:-translate-y-0.5">
+                    <i data-lucide="shield" class="w-4 h-4"></i>
+                    <span>Link Neural ID</span>
+                </button>
+                <button id="menuBtn" class="md:hidden text-emerald hover:text-amber focus:outline-none p-2">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div id="mobileMenu" class="hidden md:hidden bio-glass border-t border-emerald/20 px-6 py-6 space-y-4 font-rajdhani text-lg">
+            <a href="#hero" class="block text-emerald font-semibold py-1">HOME</a>
+            <a href="#games" class="block text-slate-300 font-semibold py-1 hover:text-emerald">CATALOG</a>
+            <a href="#tournaments" class="block text-slate-300 font-semibold py-1 hover:text-emerald">ARENA</a>
+            <a href="#leaderboard" class="block text-slate-300 font-semibold py-1 hover:text-emerald">RANKINGS</a>
+            <a href="#news" class="block text-slate-300 font-semibold py-1 hover:text-emerald">INTEL</a>
+            <a href="#community" class="block text-slate-300 font-semibold py-1 hover:text-emerald">MATRIX</a>
+            <a href="#profile" class="block text-slate-300 font-semibold py-1 hover:text-emerald">DASHBOARD</a>
+            <button onclick="openModal('authModal')" class="w-full py-3 rounded-xl font-orbitron text-xs font-bold uppercase bg-emerald text-obsidian emerald-glow mt-2">Link Neural ID</button>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="relative z-10 pt-20">
+
+        <!-- 1 & 2. HOMEPAGE HERO SECTION -->
+        <section id="hero" class="relative min-h-[92vh] flex items-center justify-center overflow-hidden py-20 px-4 sm:px-6 lg:px-8 scanline">
+            <!-- Cinematic Bio-Mech Background Image & Glows -->
+            <div class="absolute inset-0 z-0">
+                <img src="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=2000&auto=format&fit=crop" alt="Solar Bio-Mech Background" class="w-full h-full object-cover object-center opacity-20 scale-105">
+                <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/60 to-transparent"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-obsidian via-transparent to-obsidian"></div>
+                <!-- Ambient Solar Amber & Emerald Orbs -->
+                <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald/10 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
+                <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-amber/10 rounded-full blur-3xl pointer-events-none animate-pulse duration-1000"></div>
+            </div>
+
+            <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+                <!-- Hero Left Content -->
+                <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
+                    <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bio-glass border border-emerald/40 text-emerald text-xs font-orbitron uppercase tracking-widest emerald-glow">
+                        <span class="w-2 h-2 rounded-full bg-emerald animate-ping"></span>
+                        <span>Solar-Mech Epoch 5.0 — Online</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black font-orbitron tracking-tight leading-none uppercase">
+                        SYNCHRONIZE <br>
+                        <span class="text-bio-gradient drop-shadow-lg">SOLAR EVOLUTION</span>
+                    </h1>
+
+                    <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 font-poppins font-light leading-relaxed">
+                        "Unleash acid-neon bio-ware. Dominate alien star systems. Ascend to supreme immortal status in the Nexora Solar Matrix."
+                    </p>
+
+                    <!-- CTA Action Buttons -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-5">
+                        <a href="#games" class="w-full sm:w-auto px-8 py-4 rounded-xl font-orbitron text-sm font-bold uppercase tracking-wider bg-gradient-to-r from-emerald to-amber text-obsidian hover:opacity-90 emerald-glow transition-all duration-300 transform hover:-translate-y-1 text-center">
+                            EXPLORE CATALOG
+                        </a>
+                        <a href="#community" class="w-full sm:w-auto px-8 py-4 rounded-xl font-orbitron text-sm font-bold uppercase tracking-wider bio-glass text-white hover:border-amber hover:bg-amber/10 transition-all duration-300 transform hover:-translate-y-1 text-center">
+                            JOIN THE MATRIX
+                        </a>
+                    </div>
+
+                    <!-- Hero Metrics -->
+                    <div class="grid grid-cols-3 gap-4 pt-6 border-t border-emerald/20 max-w-lg mx-auto lg:mx-0">
+                        <div>
+                            <h4 class="font-orbitron font-bold text-2xl text-emerald">3.8M</h4>
+                            <p class="text-xs text-slate-400 font-rajdhani tracking-wider uppercase">Active Operatives</p>
+                        </div>
+                        <div>
+                            <h4 class="font-orbitron font-bold text-2xl text-amber">$1.25M</h4>
+                            <p class="text-xs text-slate-400 font-rajdhani tracking-wider uppercase">Solar Bounties</p>
+                        </div>
+                        <div>
+                            <h4 class="font-orbitron font-bold text-2xl text-white">240+</h4>
+                            <p class="text-xs text-slate-400 font-rajdhani tracking-wider uppercase">Bio-Worlds</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Right: Live Featured Game Card -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="w-full max-w-md bio-glass rounded-2xl p-5 relative group overflow-hidden amber-glow border border-amber/30">
+                        <!-- Live Status Badge -->
+                        <div class="absolute top-8 right-8 z-20 flex items-center space-x-2 bg-obsidian/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-amber/50">
+                            <span class="w-2.5 h-2.5 rounded-full bg-amber animate-pulse"></span>
+                            <span class="font-orbitron text-[10px] font-bold text-amber tracking-wider uppercase">FEATURED NEXUS</span>
+                        </div>
+
+                        <!-- Card Image -->
+                        <div class="relative h-72 rounded-xl overflow-hidden mb-6">
+                            <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1000&auto=format&fit=crop" alt="Solar Titan" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent"></div>
+                            <div class="absolute bottom-4 left-4">
+                                <span class="px-2.5 py-1 rounded-md bg-amber/80 backdrop-blur-sm text-[10px] font-orbitron uppercase text-obsidian font-bold">Bio-Mech / Action</span>
+                                <h3 class="font-orbitron font-bold text-2xl text-white mt-1">CHRONO-TITAN 9</h3>
+                            </div>
+                        </div>
+
+                        <!-- Card Info -->
+                        <div class="space-y-4">
+                            <p class="text-slate-300 text-xs line-clamp-2">Pilot colossal bio-mechanical titans powered by solar fusion cores across collapsing alien galaxies.</p>
+                            
+                            <div class="flex items-center justify-between pt-2">
+                                <div class="flex items-center space-x-2 text-xs text-slate-400 font-rajdhani">
+                                    <i data-lucide="users" class="w-4 h-4 text-emerald"></i>
+                                    <span>62,400 Units Active</span>
+                                </div>
+                                <button onclick="openGameModal('Chrono-Titan 9', 'Pilot colossal bio-mechanical titans powered by solar fusion cores across collapsing alien galaxies.', 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1000&auto=format&fit=crop')" class="px-4 py-2 rounded-xl bg-emerald text-obsidian font-orbitron text-xs font-bold uppercase hover:bg-emerald-light transition-colors">
+                                    Initialize
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. FEATURED GAMES CATALOG SECTION -->
+        <section id="games" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-emerald font-orbitron text-xs font-bold tracking-widest uppercase bg-emerald/10 px-4 py-1.5 rounded-full border border-emerald/20">BIO-TECH ARCHIVE</span>
+                <h2 class="text-3xl sm:text-5xl font-black font-orbitron uppercase mt-4 mb-4">EXPLORE FEATURED <span class="text-bio-gradient">GAMES</span></h2>
+                <p class="text-slate-400 text-sm sm:text-base font-poppins">Select your warfare sector across acid-neon tactical action, open-world survival, and zero-gravity racing.</p>
+                
+                <!-- Category Filter Tabs -->
+                <div id="gameFilters" class="flex flex-wrap justify-center gap-2 sm:gap-3 mt-8">
+                    <button onclick="filterGames('all')" class="game-filter-btn px-4 py-2 rounded-xl font-orbitron text-xs font-bold uppercase transition-all bg-emerald text-obsidian emerald-glow">All Sectors</button>
+                    <button onclick="filterGames('Action')" class="game-filter-btn px-4 py-2 rounded-xl font-orbitron text-xs font-bold uppercase transition-all bio-glass text-slate-300 hover:text-white">Action</button>
+                    <button onclick="filterGames('Adventure')" class="game-filter-btn px-4 py-2 rounded-xl font-orbitron text-xs font-bold uppercase transition-all bio-glass text-slate-300 hover:text-white">Adventure</button>
+                    <button onclick="filterGames('Racing')" class="game-filter-btn px-4 py-2 rounded-xl font-orbitron text-xs font-bold uppercase transition-all bio-glass text-slate-300 hover:text-white">Racing</button>
+                    <button onclick="filterGames('Shooting')" class="game-filter-btn px-4 py-2 rounded-xl font-orbitron text-xs font-bold uppercase transition-all bio-glass text-slate-300 hover:text-white">Shooting</button>
+                    <button onclick="filterGames('Sports')" class="game-filter-btn px-4 py-2 rounded-xl font-orbitron text-xs font-bold uppercase transition-all bio-glass text-slate-300 hover:text-white">Sports</button>
+                    <button onclick="filterGames('Strategy')" class="game-filter-btn px-4 py-2 rounded-xl font-orbitron text-xs font-bold uppercase transition-all bio-glass text-slate-300 hover:text-white">Strategy</button>
+                </div>
+            </div>
+
+            <!-- Games Grid -->
+            <div id="gamesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Card 1: Action -->
+                <div class="game-card bio-glass rounded-2xl overflow-hidden group transition-all duration-300 hover:-translate-y-2 border border-emerald/20" data-category="Action">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800&auto=format&fit=crop" alt="Acid Stalker" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent"></div>
+                        <span class="absolute top-4 left-4 px-3 py-1 rounded-md bg-emerald text-[10px] font-orbitron uppercase font-bold text-obsidian">Action</span>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="font-orbitron font-bold text-xl text-white">Acid Stalker: Genesis</h3>
+                        <p class="text-slate-400 text-xs line-clamp-2">Visceral underground bio-combats with acid-infused blade augmentations and synaptic reflex boosters.</p>
+                        <div class="flex items-center justify-between pt-2 border-t border-emerald/20">
+                            <span class="text-xs text-amber font-orbitron font-semibold">4.9 ★ (14.2k)</span>
+                            <button onclick="openGameModal('Acid Stalker: Genesis', 'Visceral underground bio-combats with acid-infused blade augmentations and synaptic reflex boosters.', 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800&auto=format&fit=crop')" class="px-4 py-2 rounded-xl bg-emerald hover:bg-emerald-dark text-obsidian font-orbitron text-xs font-bold uppercase transition-colors">Deploy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Adventure -->
+                <div class="game-card bio-glass rounded-2xl overflow-hidden group transition-all duration-300 hover:-translate-y-2 border border-emerald/20" data-category="Adventure">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1612287233002-b1d0ba12c7c2?q=80&w=800&auto=format&fit=crop" alt="Bio-Eden" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent"></div>
+                        <span class="absolute top-4 left-4 px-3 py-1 rounded-md bg-amber text-[10px] font-orbitron uppercase font-bold text-obsidian">Adventure</span>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="font-orbitron font-bold text-xl text-white">Bio-Eden Awakening</h3>
+                        <p class="text-slate-400 text-xs line-clamp-2">Traverse sentient overgrown alien rainforests and decipher ancient bio-luminescent glyphs.</p>
+                        <div class="flex items-center justify-between pt-2 border-t border-emerald/20">
+                            <span class="text-xs text-amber font-orbitron font-semibold">4.8 ★ (10.5k)</span>
+                            <button onclick="openGameModal('Bio-Eden Awakening', 'Traverse sentient overgrown alien rainforests and decipher ancient bio-luminescent glyphs.', 'https://images.unsplash.com/photo-1612287233002-b1d0ba12c7c2?q=80&w=800&auto=format&fit=crop')" class="px-4 py-2 rounded-xl bg-emerald hover:bg-emerald-dark text-obsidian font-orbitron text-xs font-bold uppercase transition-colors">Deploy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Racing -->
+                <div class="game-card bio-glass rounded-2xl overflow-hidden group transition-all duration-300 hover:-translate-y-2 border border-emerald/20" data-category="Racing">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=800&auto=format&fit=crop" alt="Solar Velocity" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent"></div>
+                        <span class="absolute top-4 left-4 px-3 py-1 rounded-md bg-emerald text-[10px] font-orbitron uppercase font-bold text-obsidian">Racing</span>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="font-orbitron font-bold text-xl text-white">Solar Velocity 9000</h3>
+                        <p class="text-slate-400 text-xs line-clamp-2">Magnetic levitation super-jets racing along solar storm rings at Mach 12 velocities.</p>
+                        <div class="flex items-center justify-between pt-2 border-t border-emerald/20">
+                            <span class="text-xs text-amber font-orbitron font-semibold">4.9 ★ (18.1k)</span>
+                            <button onclick="openGameModal('Solar Velocity 9000', 'Magnetic levitation super-jets racing along solar storm rings at Mach 12 velocities.', 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=800&auto=format&fit=crop')" class="px-4 py-2 rounded-xl bg-emerald hover:bg-emerald-dark text-obsidian font-orbitron text-xs font-bold uppercase transition-colors">Deploy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Shooting -->
+                <div class="game-card bio-glass rounded-2xl overflow-hidden group transition-all duration-300 hover:-translate-y-2 border border-emerald/20" data-category="Shooting">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1542751110-97427bbecf20?q=80&w=800&auto=format&fit=crop" alt="Plasma Vanguard" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent"></div>
+                        <span class="absolute top-4 left-4 px-3 py-1 rounded-md bg-amber text-[10px] font-orbitron uppercase font-bold text-obsidian">Shooting</span>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="font-orbitron font-bold text-xl text-white">Plasma Phalanx</h3>
+                        <p class="text-slate-400 text-xs line-clamp-2">Intense 5v5 tactical arena shooter featuring modular plasma rifles and kinetic shields.</p>
+                        <div class="flex items-center justify-between pt-2 border-t border-emerald/20">
+                            <span class="text-xs text-amber font-orbitron font-semibold">4.7 ★ (31.2k)</span>
+                            <button onclick="openGameModal('Plasma Phalanx', 'Intense 5v5 tactical arena shooter featuring modular plasma rifles and kinetic shields.', 'https://images.unsplash.com/photo-1542751110-97427bbecf20?q=80&w=800&auto=format&fit=crop')" class="px-4 py-2 rounded-xl bg-emerald hover:bg-emerald-dark text-obsidian font-orbitron text-xs font-bold uppercase transition-colors">Deploy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5: Sports -->
+                <div class="game-card bio-glass rounded-2xl overflow-hidden group transition-all duration-300 hover:-translate-y-2 border border-emerald/20" data-category="Sports">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1511882150382-421056c89033?q=80&w=800&auto=format&fit=crop" alt="Hyperball" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent"></div>
+                        <span class="absolute top-4 left-4 px-3 py-1 rounded-md bg-emerald text-[10px] font-orbitron uppercase font-bold text-obsidian">Sports</span>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="font-orbitron font-bold text-xl text-white">Solar Ballistic Arena</h3>
+                        <p class="text-slate-400 text-xs line-clamp-2">High-velocity kinetic sports in orbital megastructures with gravity manipulation pads.</p>
+                        <div class="flex items-center justify-between pt-2 border-t border-emerald/20">
+                            <span class="text-xs text-amber font-orbitron font-semibold">4.6 ★ (9.1k)</span>
+                            <button onclick="openGameModal('Solar Ballistic Arena', 'High-velocity kinetic sports in orbital megastructures with gravity manipulation pads.', 'https://images.unsplash.com/photo-1511882150382-421056c89033?q=80&w=800&auto=format&fit=crop')" class="px-4 py-2 rounded-xl bg-emerald hover:bg-emerald-dark text-obsidian font-orbitron text-xs font-bold uppercase transition-colors">Deploy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 6: Strategy -->
+                <div class="game-card bio-glass rounded-2xl overflow-hidden group transition-all duration-300 hover:-translate-y-2 border border-emerald/20" data-category="Strategy">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1563089145-599997674d42?q=80&w=800&auto=format&fit=crop" alt="Bio-Matrix" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent"></div>
+                        <span class="absolute top-4 left-4 px-3 py-1 rounded-md bg-amber text-[10px] font-orbitron uppercase font-bold text-obsidian">Strategy</span>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="font-orbitron font-bold text-xl text-white">Bio-Matrix Overlord</h3>
+                        <p class="text-slate-400 text-xs line-clamp-2">Engineer sentient alien swarms and colonize solar systems in real-time tactical warfare.</p>
+                        <div class="flex items-center justify-between pt-2 border-t border-emerald/20">
+                            <span class="text-xs text-amber font-orbitron font-semibold">4.9 ★ (13.7k)</span>
+                            <button onclick="openGameModal('Bio-Matrix Overlord', 'Engineer sentient alien swarms and colonize solar systems in real-time tactical warfare.', 'https://images.unsplash.com/photo-1563089145-599997674d42?q=80&w=800&auto=format&fit=crop')" class="px-4 py-2 rounded-xl bg-emerald hover:bg-emerald-dark text-obsidian font-orbitron text-xs font-bold uppercase transition-colors">Deploy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. GAMING TOURNAMENTS SECTION WITH LIVE COUNTDOWNS -->
+        <section id="tournaments" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative">
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-emerald/5 to-transparent pointer-events-none"></div>
+            
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-amber font-orbitron text-xs font-bold tracking-widest uppercase bg-amber/10 px-4 py-1.5 rounded-full border border-amber/20">ESPORTS COMBAT ARENA</span>
+                <h2 class="text-3xl sm:text-5xl font-black font-orbitron uppercase mt-4 mb-4">SOLAR-MECH <span class="text-bio-gradient">TOURNAMENTS</span></h2>
+                <p class="text-slate-400 text-sm sm:text-base font-poppins">Enter high-stakes tournaments for cash and rare bio-nft trophies. Real-time countdowns enabled.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Tournament 1 -->
+                <div class="bio-glass rounded-2xl p-6 relative flex flex-col justify-between border border-emerald/20 hover:border-amber/50 transition-all group">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 rounded-md bg-emerald/10 text-emerald text-xs font-orbitron font-bold uppercase border border-emerald/30">Chrono-Titan 9</span>
+                            <span class="text-xs text-slate-400 font-rajdhani">Squads (4v4)</span>
+                        </div>
+                        <h3 class="font-orbitron font-bold text-2xl text-white mb-2 group-hover:text-amber transition-colors">Solar Apex Grand Championship</h3>
+                        <p class="text-slate-400 text-xs mb-6">Double elimination bracket for regional hegemony. Elite squads only.</p>
+                        
+                        <div class="space-y-3 py-4 border-t border-b border-emerald/20 text-xs font-rajdhani">
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-400">Prize Pool:</span>
+                                <span class="font-orbitron font-bold text-amber text-sm">$75,000 USD</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-400">Starts In:</span>
+                                <span class="font-orbitron font-bold text-emerald text-sm" id="timer-1">03D : 14H : 22M</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-400">Status:</span>
+                                <span class="font-semibold text-emerald">Registration Open</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="registerTournament('Solar Apex Grand Championship')" class="mt-6 w-full py-3 rounded-xl bg-gradient-to-r from-emerald to-amber text-obsidian font-orbitron text-xs font-bold uppercase tracking-wider hover:opacity-95 emerald-glow transition-all">
+                        REGISTER SQUAD
+                    </button>
+                </div>
+
+                <!-- Tournament 2 -->
+                <div class="bio-glass rounded-2xl p-6 relative flex flex-col justify-between border border-emerald/20 hover:border-amber/50 transition-all group">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 rounded-md bg-amber/10 text-amber text-xs font-orbitron font-bold uppercase border border-amber/30">Acid Stalker</span>
+                            <span class="text-xs text-slate-400 font-rajdhani">Solo Deathmatch</span>
+                        </div>
+                        <h3 class="font-orbitron font-bold text-2xl text-white mb-2 group-hover:text-amber transition-colors">Underground Showdown S4</h3>
+                        <p class="text-slate-400 text-xs mb-6">100 operatives enter the acid sector. Only the ultimate stalker survives.</p>
+                        
+                        <div class="space-y-3 py-4 border-t border-b border-emerald/20 text-xs font-rajdhani">
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-400">Prize Pool:</span>
+                                <span class="font-orbitron font-bold text-amber text-sm">$35,000 USD</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-400">Starts In:</span>
+                                <span class="font-orbitron font-bold text-emerald text-sm" id="timer-2">06D : 09H : 45M</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-400">Status:</span>
+                                <span class="font-semibold text-emerald">Registration Open</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="registerTournament('Underground Showdown S4')" class="mt-6 w-full py-3 rounded-xl bg-gradient-to-r from-emerald to-amber text-obsidian font-orbitron text-xs font-bold uppercase tracking-wider hover:opacity-95 emerald-glow transition-all">
+                        REGISTER SOLO
+                    </button>
+                </div>
+
+                <!-- Tournament 3 -->
+                <div class="bio-glass rounded-2xl p-6 relative flex flex-col justify-between border border-emerald/20 hover:border-amber/50 transition-all group">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 rounded-md bg-emerald/10 text-emerald text-xs font-orbitron font-bold uppercase border border-emerald/30">Solar Velocity</span>
+                            <span class="text-xs text-slate-400 font-rajdhani">Time Trial</span>
+                        </div>
+                        <h3 class="font-orbitron font-bold text-2xl text-white mb-2 group-hover:text-amber transition-colors">Stratosphere Speed Cup</h3>
+                        <p class="text-slate-400 text-xs mb-6">Break sound barriers across solar ring circuits in a relentless time trial.</p>
+                        
+                        <div class="space-y-3 py-4 border-t border-b border-emerald/20 text-xs font-rajdhani">
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-400">Prize Pool:</span>
+                                <span class="font-orbitron font-bold text-amber text-sm">$20,000 USD</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-400">Starts In:</span>
+                                <span class="font-orbitron font-bold text-emerald text-sm" id="timer-3">12D : 02H : 10M</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-400">Status:</span>
+                                <span class="font-semibold text-emerald">Registration Open</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="registerTournament('Stratosphere Speed Cup')" class="mt-6 w-full py-3 rounded-xl bg-gradient-to-r from-emerald to-amber text-obsidian font-orbitron text-xs font-bold uppercase tracking-wider hover:opacity-95 emerald-glow transition-all">
+                        REGISTER PILOT
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. LIVE LEADERBOARD SECTION -->
+        <section id="leaderboard" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-emerald font-orbitron text-xs font-bold tracking-widest uppercase bg-emerald/10 px-4 py-1.5 rounded-full border border-emerald/20">HALL OF IMMORTALS</span>
+                <h2 class="text-3xl sm:text-5xl font-black font-orbitron uppercase mt-4 mb-4">GLOBAL <span class="text-bio-gradient">LEADERBOARD</span></h2>
+                <p class="text-slate-400 text-sm sm:text-base font-poppins">Ranking the top bio-mech operatives across the Nexora planetary network.</p>
+            </div>
+
+            <!-- Top 3 Podium Highlights -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 items-end">
+                <!-- 2nd Place -->
+                <div class="bio-glass rounded-2xl p-6 text-center border border-slate-700 order-2 md:order-1 relative transform md:-translate-y-4">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full bg-slate-300 text-obsidian font-orbitron font-black flex items-center justify-center text-sm shadow-lg">2</div>
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" alt="Player" class="w-20 h-20 rounded-full mx-auto object-cover border-2 border-slate-300 mb-4">
+                    <h4 class="font-orbitron font-bold text-lg text-white">Valkyrie_Acid</h4>
+                    <p class="text-xs text-slate-400 mb-4">Clan: Solar Syndicate</p>
+                    <div class="grid grid-cols-2 gap-2 text-xs bg-charcoal/80 p-3 rounded-xl border border-emerald/10 font-rajdhani">
+                        <div><span class="text-slate-400 block">Points</span><strong class="text-emerald font-orbitron">39,450</strong></div>
+                        <div><span class="text-slate-400 block">Wins</span><strong class="text-white font-orbitron">412</strong></div>
+                    </div>
+                </div>
+
+                <!-- 1st Place Podium -->
+                <div class="bio-glass rounded-2xl p-6 text-center border-2 border-amber order-1 md:order-2 amber-glow relative transform md:-translate-y-8 bg-gradient-to-b from-charcoal to-obsidian">
+                    <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-full bg-amber text-obsidian font-orbitron font-black flex items-center justify-center text-lg shadow-xl amber-glow">👑</div>
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop" alt="Player" class="w-24 h-24 rounded-full mx-auto object-cover border-2 border-amber mb-4 amber-glow">
+                    <h4 class="font-orbitron font-bold text-xl text-white">SolarOverlord_X</h4>
+                    <p class="text-xs text-amber mb-4">Clan: Nexora Prime [LDR]</p>
+                    <div class="grid grid-cols-2 gap-2 text-xs bg-charcoal/90 p-3 rounded-xl border border-amber/30 font-rajdhani">
+                        <div><span class="text-slate-400 block">Points</span><strong class="text-amber font-orbitron text-sm">48,920</strong></div>
+                        <div><span class="text-slate-400 block">Wins</span><strong class="text-white font-orbitron text-sm">584</strong></div>
+                    </div>
+                </div>
+
+                <!-- 3rd Place -->
+                <div class="bio-glass rounded-2xl p-6 text-center border border-emerald/40 order-3 md:order-3 relative transform md:-translate-y-2">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full bg-emerald text-obsidian font-orbitron font-black flex items-center justify-center text-sm shadow-lg">3</div>
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop" alt="Player" class="w-20 h-20 rounded-full mx-auto object-cover border-2 border-emerald mb-4">
+                    <h4 class="font-orbitron font-bold text-lg text-white">BioStalker_99</h4>
+                    <p class="text-xs text-slate-400 mb-4">Clan: Phantom Hive</p>
+                    <div class="grid grid-cols-2 gap-2 text-xs bg-charcoal/80 p-3 rounded-xl border border-emerald/10 font-rajdhani">
+                        <div><span class="text-slate-400 block">Points</span><strong class="text-emerald font-orbitron">34,100</strong></div>
+                        <div><span class="text-slate-400 block">Wins</span><strong class="text-white font-orbitron">365</strong></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Leaderboard Table -->
+            <div class="bio-glass rounded-2xl overflow-hidden border border-emerald/20">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-b border-emerald/20 text-xs font-orbitron uppercase text-slate-400 bg-charcoal/60">
+                                <th class="p-4 sm:p-5">Rank</th>
+                                <th class="p-4 sm:p-5">Operative Username</th>
+                                <th class="p-4 sm:p-5">Clan / Faction</th>
+                                <th class="p-4 sm:p-5">Solar Rating</th>
+                                <th class="p-4 sm:p-5">Victories</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-emerald/10 text-sm font-rajdhani font-semibold">
+                            <tr class="hover:bg-emerald/5 transition-colors">
+                                <td class="p-4 sm:p-5 font-orbitron font-bold text-slate-300">#4</td>
+                                <td class="p-4 sm:p-5 flex items-center space-x-3">
+                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100&auto=format&fit=crop" class="w-8 h-8 rounded-full object-cover">
+                                    <span class="font-semibold text-white font-poppins">NovaStrikr</span>
+                                </td>
+                                <td class="p-4 sm:p-5 text-slate-400">Astral Wolves</td>
+                                <td class="p-4 sm:p-5 font-orbitron text-emerald">31,200</td>
+                                <td class="p-4 sm:p-5 text-white font-orbitron">298</td>
+                            </tr>
+                            <tr class="hover:bg-emerald/5 transition-colors">
+                                <td class="p-4 sm:p-5 font-orbitron font-bold text-slate-300">#5</td>
+                                <td class="p-4 sm:p-5 flex items-center space-x-3">
+                                    <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=100&auto=format&fit=crop" class="w-8 h-8 rounded-full object-cover">
+                                    <span class="font-semibold text-white font-poppins">AcidMatrix</span>
+                                </td>
+                                <td class="p-4 sm:p-5 text-slate-400">Cyber Legion</td>
+                                <td class="p-4 sm:p-5 font-orbitron text-emerald">29,840</td>
+                                <td class="p-4 sm:p-5 text-white font-orbitron">275</td>
+                            </tr>
+                            <tr class="hover:bg-emerald/5 transition-colors">
+                                <td class="p-4 sm:p-5 font-orbitron font-bold text-slate-300">#6</td>
+                                <td class="p-4 sm:p-5 flex items-center space-x-3">
+                                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=100&auto=format&fit=crop" class="w-8 h-8 rounded-full object-cover">
+                                    <span class="font-semibold text-white font-poppins">TitanDrift</span>
+                                </td>
+                                <td class="p-4 sm:p-5 text-slate-400">Velocity Core</td>
+                                <td class="p-4 sm:p-5 font-orbitron text-emerald">27,150</td>
+                                <td class="p-4 sm:p-5 text-white font-orbitron">240</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. GAMING NEWS & UPDATES SECTION -->
+        <section id="news" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-amber font-orbitron text-xs font-bold tracking-widest uppercase bg-amber/10 px-4 py-1.5 rounded-full border border-amber/20">EDITORIAL INTEL</span>
+                <h2 class="text-3xl sm:text-5xl font-black font-orbitron uppercase mt-4 mb-4">LATEST NEWS & <span class="text-bio-gradient">UPDATES</span></h2>
+                <p class="text-slate-400 text-sm sm:text-base font-poppins">Encrypted dispatches regarding solar patches, bio-hardware releases, and esports briefs.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Article 1 -->
+                <div class="bio-glass rounded-2xl overflow-hidden group flex flex-col justify-between border border-emerald/20 hover:border-amber/40 transition-all">
+                    <div>
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?q=80&w=800&auto=format&fit=crop" alt="News" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <span class="absolute top-4 left-4 px-3 py-1 rounded bg-emerald text-[10px] font-orbitron uppercase font-bold text-obsidian">Patch Update</span>
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <div class="flex items-center space-x-2 text-xs text-slate-400 font-rajdhani">
+                                <i data-lucide="calendar" class="w-3.5 h-3.5 text-emerald"></i>
+                                <span>Solar Date 2026.04</span>
+                                <span>•</span>
+                                <span>5 min read</span>
+                            </div>
+                            <h3 class="font-orbitron font-bold text-xl text-white group-hover:text-amber transition-colors">Patch 5.4: The Solar Fusion Core Overhaul</h3>
+                            <p class="text-slate-400 text-xs line-clamp-3">Major balance patch introducing new bio-mech energy shields, faster projectile velocities, and custom chassis paints.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="openNewsModal('Patch 5.4: The Solar Fusion Core Overhaul', 'Major balance patch introducing new bio-mech energy shields, faster projectile velocities, and custom chassis paints across all competitive servers.')" class="text-emerald font-orbitron text-xs font-bold uppercase tracking-wider flex items-center space-x-2 hover:text-amber transition-colors">
+                            <span>Read Intel</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Article 2 -->
+                <div class="bio-glass rounded-2xl overflow-hidden group flex flex-col justify-between border border-emerald/20 hover:border-amber/40 transition-all">
+                    <div>
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=800&auto=format&fit=crop" alt="News" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <span class="absolute top-4 left-4 px-3 py-1 rounded bg-amber text-[10px] font-orbitron uppercase font-bold text-obsidian">Esports Brief</span>
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <div class="flex items-center space-x-2 text-xs text-slate-400 font-rajdhani">
+                                <i data-lucide="calendar" class="w-3.5 h-3.5 text-emerald"></i>
+                                <span>Solar Date 2026.03</span>
+                                <span>•</span>
+                                <span>4 min read</span>
+                            </div>
+                            <h3 class="font-orbitron font-bold text-xl text-white group-hover:text-amber transition-colors">Nexora World Cup 2026 Announced in Neo-Geneva</h3>
+                            <p class="text-slate-400 text-xs line-clamp-3">The planetary esports finals will feature 32 qualified squads competing live in zero-gravity arenas for $1.5M.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="openNewsModal('Nexora World Cup 2026 Announced in Neo-Geneva', 'The planetary esports finals will feature 32 qualified squads competing live in zero-gravity arenas for $1.5M prize pool.')" class="text-emerald font-orbitron text-xs font-bold uppercase tracking-wider flex items-center space-x-2 hover:text-amber transition-colors">
+                            <span>Read Intel</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Article 3 -->
+                <div class="bio-glass rounded-2xl overflow-hidden group flex flex-col justify-between border border-emerald/20 hover:border-amber/40 transition-all">
+                    <div>
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1612287233002-b1d0ba12c7c2?q=80&w=800&auto=format&fit=crop" alt="News" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <span class="absolute top-4 left-4 px-3 py-1 rounded bg-emerald text-[10px] font-orbitron uppercase font-bold text-obsidian">Hardware</span>
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <div class="flex items-center space-x-2 text-xs text-slate-400 font-rajdhani">
+                                <i data-lucide="calendar" class="w-3.5 h-3.5 text-emerald"></i>
+                                <span>Solar Date 2026.03</span>
+                                <span>•</span>
+                                <span>6 min read</span>
+                            </div>
+                            <h3 class="font-orbitron font-bold text-xl text-white group-hover:text-amber transition-colors">Review: Synaptic Neural Visor V8 Tested</h3>
+                            <p class="text-slate-400 text-xs line-clamp-3">We review the new neural visor boasting zero latency eye-tracking and true holographic depth perception.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="openNewsModal('Review: Synaptic Neural Visor V8 Tested', 'We review the new neural visor boasting zero latency eye-tracking and true holographic depth perception. An absolute masterpiece for VR gamers.')" class="text-emerald font-orbitron text-xs font-bold uppercase tracking-wider flex items-center space-x-2 hover:text-amber transition-colors">
+                            <span>Read Intel</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. COMMUNITY SECTION -->
+        <section id="community" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative">
+            <div class="absolute inset-0 bg-gradient-to-r from-emerald/10 via-amber/5 to-transparent rounded-3xl pointer-events-none"></div>
+
+            <div class="bio-glass rounded-3xl p-8 sm:p-12 border border-emerald/30 relative overflow-hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <div class="lg:col-span-7 space-y-6">
+                        <span class="text-amber font-orbitron text-xs font-bold tracking-widest uppercase bg-amber/10 px-4 py-1.5 rounded-full border border-amber/20">COMMUNAL MATRIX</span>
+                        <h2 class="text-3xl sm:text-4xl font-black font-orbitron uppercase">JOIN THE <span class="text-bio-gradient">NEXORA DISCORD</span></h2>
+                        <p class="text-slate-300 text-sm sm:text-base font-poppins">Connect with over 300,000 active bio-mech operatives, find squadmates for tournaments, and chat with core developers.</p>
+                        
+                        <div class="flex flex-wrap gap-4 pt-2">
+                            <a href="https://discord.com" target="_blank" class="px-8 py-4 rounded-xl bg-[#5865F2] hover:bg-[#4752C4] text-white font-orbitron text-xs font-bold uppercase tracking-wider flex items-center space-x-3 transition-transform hover:-translate-y-1 shadow-lg">
+                                <i data-lucide="message-square" class="w-5 h-5"></i>
+                                <span>CONNECT TO DISCORD (94K ONLINE)</span>
+                            </a>
+                            <a href="#streams" class="px-8 py-4 rounded-xl bio-glass text-white font-orbitron text-xs font-bold uppercase tracking-wider hover:border-amber transition-all flex items-center space-x-3">
+                                <i data-lucide="tv" class="w-5 h-5 text-emerald"></i>
+                                <span>STREAMERS HUB</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Featured Streamers -->
+                    <div class="lg:col-span-5 space-y-4">
+                        <h4 class="font-orbitron font-bold text-sm text-slate-300 uppercase tracking-wider">Live Solar Streamers</h4>
+                        
+                        <div class="space-y-3">
+                            <div class="bio-glass p-3 rounded-xl flex items-center justify-between border border-emerald/20 hover:border-amber/40 transition-all">
+                                <div class="flex items-center space-x-3">
+                                    <div class="relative">
+                                        <img src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=100&auto=format&fit=crop" class="w-12 h-12 rounded-full object-cover">
+                                        <span class="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full bg-red-500 border-2 border-obsidian animate-pulse"></span>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-orbitron font-bold text-sm text-white">AcidQueen_X</h5>
+                                        <p class="text-xs text-slate-400 font-rajdhani">Chrono-Titan 9 Speedrun</p>
+                                    </div>
+                                </div>
+                                <span class="px-3 py-1 rounded-lg bg-red-500/20 text-red-400 font-orbitron text-[10px] font-bold uppercase">LIVE</span>
+                            </div>
+
+                            <div class="bio-glass p-3 rounded-xl flex items-center justify-between border border-emerald/20 hover:border-amber/40 transition-all">
+                                <div class="flex items-center space-x-3">
+                                    <div class="relative">
+                                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=100&auto=format&fit=crop" class="w-12 h-12 rounded-full object-cover">
+                                        <span class="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full bg-red-500 border-2 border-obsidian animate-pulse"></span>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-orbitron font-bold text-sm text-white">SolarVortex</h5>
+                                        <p class="text-xs text-slate-400 font-rajdhani">Plasma Phalanx Ranked 1v1</p>
+                                    </div>
+                                </div>
+                                <span class="px-3 py-1 rounded-lg bg-red-500/20 text-red-400 font-orbitron text-[10px] font-bold uppercase">LIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. PLAYER PROFILE DASHBOARD (Interactive) -->
+        <section id="profile" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-emerald font-orbitron text-xs font-bold tracking-widest uppercase bg-emerald/10 px-4 py-1.5 rounded-full border border-emerald/20">OPERATIVE TELEMETRY</span>
+                <h2 class="text-3xl sm:text-5xl font-black font-orbitron uppercase mt-4 mb-4">YOUR NEURAL <span class="text-bio-gradient">DASHBOARD</span></h2>
+                <p class="text-slate-400 text-sm sm:text-base font-poppins">Manage your combat telemetry, unlocked bio-achievements, and match logs.</p>
+            </div>
+
+            <!-- Profile Dashboard Box -->
+            <div class="bio-glass rounded-3xl p-6 sm:p-10 border border-emerald/30">
+                <!-- Header -->
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-emerald/20">
+                    <div class="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6 text-center sm:text-left">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200&auto=format&fit=crop" alt="Avatar" class="w-24 h-24 rounded-2xl object-cover border-2 border-emerald emerald-glow">
+                            <span class="absolute -bottom-2 -right-2 px-2 py-0.5 rounded-lg bg-amber text-obsidian font-orbitron text-[10px] font-bold">LVL 92</span>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-center sm:justify-start space-x-2">
+                                <h3 class="font-orbitron font-bold text-2xl text-white">Kael "Vortex" Thorne</h3>
+                                <span class="px-2.5 py-0.5 rounded bg-emerald/10 text-emerald text-xs font-orbitron font-bold border border-emerald/30">Elite Operative</span>
+                            </div>
+                            <p class="text-slate-400 text-xs mt-1 font-rajdhani">Clan: Nexora Prime [LDR] • Synced Nov 2025</p>
+                            
+                            <!-- XP Progress Bar -->
+                            <div class="mt-4 w-full sm:w-80">
+                                <div class="flex justify-between text-xs font-orbitron text-slate-400 mb-1">
+                                    <span>Neural XP: 18,400 / 25,000</span>
+                                    <span class="text-emerald">74%</span>
+                                </div>
+                                <div class="w-full h-2 rounded-full bg-charcoal overflow-hidden">
+                                    <div class="w-[74%] h-full bg-gradient-to-r from-emerald to-amber"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stats Badges -->
+                    <div class="grid grid-cols-3 gap-4 w-full md:w-auto font-rajdhani">
+                        <div class="bio-glass p-4 rounded-xl text-center border border-emerald/20">
+                            <span class="text-xs text-slate-400 block font-poppins">Win Ratio</span>
+                            <strong class="font-orbitron text-xl text-emerald">72.1%</strong>
+                        </div>
+                        <div class="bio-glass p-4 rounded-xl text-center border border-emerald/20">
+                            <span class="text-xs text-slate-400 block font-poppins">K/D Index</span>
+                            <strong class="font-orbitron text-xl text-white">3.45</strong>
+                        </div>
+                        <div class="bio-glass p-4 rounded-xl text-center border border-emerald/20">
+                            <span class="text-xs text-slate-400 block font-poppins">Total Bouts</span>
+                            <strong class="font-orbitron text-xl text-amber">1,890</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabs & Details -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-8">
+                    <!-- Achievements & Favorite Games -->
+                    <div class="lg:col-span-5 space-y-8">
+                        <div>
+                            <h4 class="font-orbitron font-bold text-lg text-white mb-4 flex items-center space-x-2">
+                                <i data-lucide="award" class="w-5 h-5 text-emerald"></i>
+                                <span>Unlocked Bio-Achievements</span>
+                            </h4>
+                            <div class="space-y-3">
+                                <div class="bio-glass p-3 rounded-xl flex items-center space-x-4 border border-emerald/20">
+                                    <div class="w-10 h-10 rounded-xl bg-emerald/20 flex items-center justify-center text-emerald font-orbitron font-bold text-lg">⚡</div>
+                                    <div>
+                                        <h5 class="font-orbitron font-bold text-sm text-white">Solar Immortal</h5>
+                                        <p class="text-xs text-slate-400 font-rajdhani">Ranked in top 50 global bio-mech leaderboards</p>
+                                    </div>
+                                </div>
+                                <div class="bio-glass p-3 rounded-xl flex items-center space-x-4 border border-emerald/20">
+                                    <div class="w-10 h-10 rounded-xl bg-amber/20 flex items-center justify-center text-amber font-orbitron font-bold text-lg">🔥</div>
+                                    <div>
+                                        <h5 class="font-orbitron font-bold text-sm text-white">Apex Predator</h5>
+                                        <p class="text-xs text-slate-400 font-rajdhani">Achieved a 35-kill streak in Plasma Phalanx</p>
+                                    </div>
+                                </div>
+                                <div class="bio-glass p-3 rounded-xl flex items-center space-x-4 border border-emerald/20">
+                                    <div class="w-10 h-10 rounded-xl bg-emerald/20 flex items-center justify-center text-emerald font-orbitron font-bold text-lg">🏎️</div>
+                                    <div>
+                                        <h5 class="font-orbitron font-bold text-sm text-white">Mach 12 Pilot</h5>
+                                        <p class="text-xs text-slate-400 font-rajdhani">Broke the speed record in Solar Velocity 9000</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="font-orbitron font-bold text-lg text-white mb-4 flex items-center space-x-2">
+                                <i data-lucide="gamepad" class="w-5 h-5 text-emerald"></i>
+                                <span>Favorite Sectors</span>
+                            </h4>
+                            <div class="grid grid-cols-3 gap-3">
+                                <div class="relative rounded-xl overflow-hidden h-24 group">
+                                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=200&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                                    <div class="absolute inset-0 bg-obsidian/60 flex items-end p-2"><span class="font-orbitron text-[10px] text-white font-bold">Titan 9</span></div>
+                                </div>
+                                <div class="relative rounded-xl overflow-hidden h-24 group">
+                                    <img src="https://images.unsplash.com/photo-1542751110-97427bbecf20?q=80&w=200&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                                    <div class="absolute inset-0 bg-obsidian/60 flex items-end p-2"><span class="font-orbitron text-[10px] text-white font-bold">Phalanx</span></div>
+                                </div>
+                                <div class="relative rounded-xl overflow-hidden h-24 group">
+                                    <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=200&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                                    <div class="absolute inset-0 bg-obsidian/60 flex items-end p-2"><span class="font-orbitron text-[10px] text-white font-bold">Velocity</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Match History -->
+                    <div class="lg:col-span-7">
+                        <h4 class="font-orbitron font-bold text-lg text-white mb-4 flex items-center space-x-2">
+                            <i data-lucide="history" class="w-5 h-5 text-emerald"></i>
+                            <span>Recent Neural Match Log</span>
+                        </h4>
+                        <div class="space-y-3 font-rajdhani font-semibold">
+                            <div class="bio-glass p-4 rounded-xl flex items-center justify-between border border-emerald/20">
+                                <div class="flex items-center space-x-4">
+                                    <span class="w-3 h-3 rounded-full bg-emerald"></span>
+                                    <div>
+                                        <h5 class="font-orbitron font-bold text-sm text-white font-poppins">Chrono-Titan 9 — Ranked Core War</h5>
+                                        <p class="text-xs text-slate-400">Sector 7 Alpha • 1 hour ago</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <span class="font-orbitron font-bold text-emerald text-sm block">VICTORY</span>
+                                    <span class="text-xs text-slate-400">K/D: 18/2 (+55 pts)</span>
+                                </div>
+                            </div>
+
+                            <div class="bio-glass p-4 rounded-xl flex items-center justify-between border border-emerald/20">
+                                <div class="flex items-center space-x-4">
+                                    <span class="w-3 h-3 rounded-full bg-emerald"></span>
+                                    <div>
+                                        <h5 class="font-orbitron font-bold text-sm text-white font-poppins">Plasma Phalanx — 5v5 Arena Clash</h5>
+                                        <p class="text-xs text-slate-400">Orbital Station Beta • Yesterday</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <span class="font-orbitron font-bold text-emerald text-sm block">VICTORY</span>
+                                    <span class="text-xs text-slate-400">K/D: 24/6 (+70 pts)</span>
+                                </div>
+                            </div>
+
+                            <div class="bio-glass p-4 rounded-xl flex items-center justify-between border border-emerald/20">
+                                <div class="flex items-center space-x-4">
+                                    <span class="w-3 h-3 rounded-full bg-amber"></span>
+                                    <div>
+                                        <h5 class="font-orbitron font-bold text-sm text-white font-poppins">Solar Velocity 9000 — Ring Grand Prix</h5>
+                                        <p class="text-xs text-slate-400">Stratosphere Track 1 • 2 days ago</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <span class="font-orbitron font-bold text-amber text-sm block">PODIUM (2nd)</span>
+                                    <span class="text-xs text-slate-400">Lap: 1:04.2 (+25 pts)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 9. FOOTER SECTION -->
+    <footer class="bio-glass border-t border-emerald/30 pt-16 pb-12 mt-20 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-emerald/20">
+                <!-- Brand Column -->
+                <div class="lg:col-span-2 space-y-4">
+                    <a href="#" class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald to-amber p-0.5 flex items-center justify-center emerald-glow">
+                            <div class="w-full h-full bg-obsidian rounded-[10px] flex items-center justify-center">
+                                <i data-lucide="cpu" class="w-5 h-5 text-emerald"></i>
+                            </div>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="font-orbitron font-black text-xl tracking-widest text-white">NEXORA</span>
+                            <span class="text-[10px] font-rajdhani tracking-[0.25em] text-emerald font-bold -mt-1 uppercase">Bio-Mech Nexus</span>
+                        </div>
+                    </a>
+                    <p class="text-slate-400 text-xs sm:text-sm font-poppins max-w-sm">
+                        The ultimate solar bio-mech gaming ecosystem uniting competitive esports, AAA tactical titles, and an elite interplanetary operative community.
+                    </p>
+                    <div class="flex items-center space-x-4 pt-2">
+                        <a href="https://discord.com" target="_blank" class="w-10 h-10 rounded-xl bio-glass flex items-center justify-center text-emerald hover:bg-emerald/20 hover:border-amber transition-all"><i data-lucide="message-square" class="w-5 h-5"></i></a>
+                        <a href="https://twitter.com" target="_blank" class="w-10 h-10 rounded-xl bio-glass flex items-center justify-center text-emerald hover:bg-emerald/20 hover:border-amber transition-all"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                        <a href="https://youtube.com" target="_blank" class="w-10 h-10 rounded-xl bio-glass flex items-center justify-center text-emerald hover:bg-emerald/20 hover:border-amber transition-all"><i data-lucide="youtube" class="w-5 h-5"></i></a>
+                        <a href="https://twitch.tv" target="_blank" class="w-10 h-10 rounded-xl bio-glass flex items-center justify-center text-emerald hover:bg-emerald/20 hover:border-amber transition-all"><i data-lucide="twitch" class="w-5 h-5"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-orbitron font-bold text-sm text-white uppercase tracking-wider mb-4">Sitemap</h4>
+                    <ul class="space-y-2.5 text-xs font-rajdhani font-semibold text-slate-400">
+                        <li><a href="#hero" class="hover:text-emerald transition-colors">About Nexora</a></li>
+                        <li><a href="#games" class="hover:text-emerald transition-colors">Game Catalog</a></li>
+                        <li><a href="#tournaments" class="hover:text-emerald transition-colors">Esports Arena</a></li>
+                        <li><a href="#news" class="hover:text-emerald transition-colors">Editorial Intel</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support & Legal -->
+                <div>
+                    <h4 class="font-orbitron font-bold text-sm text-white uppercase tracking-wider mb-4">Support & Legal</h4>
+                    <ul class="space-y-2.5 text-xs font-rajdhani font-semibold text-slate-400">
+                        <li><a href="#community" class="hover:text-emerald transition-colors">Neural Help Desk</a></li>
+                        <li><a href="#" onclick="openToast('Contact Support', 'Contact us at support@nexoragaming.io')" class="hover:text-emerald transition-colors">Contact Operatives</a></li>
+                        <li><a href="#" onclick="openToast('Privacy Protocol', 'Encrypted under Nexora Interplanetary Privacy Standards.')" class="hover:text-emerald transition-colors">Privacy Protocol</a></li>
+                        <li><a href="#" onclick="openToast('Fair Play Terms', 'Zero tolerance for synthetic hacks or neural exploits.')" class="hover:text-emerald transition-colors">Fair Play Codex</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="font-orbitron font-bold text-sm text-white uppercase tracking-wider mb-4">Solar Dispatch</h4>
+                    <p class="text-xs text-slate-400 mb-4 font-poppins">Subscribe for encrypted game keys, tournament invites, and solar patch notes.</p>
+                    <form onsubmit="handleNewsletter(event)" class="space-y-2">
+                        <input type="email" required placeholder="operative@nexora.io" class="w-full px-4 py-2.5 rounded-xl bio-glass border border-emerald/30 text-xs text-white focus:outline-none focus:border-amber">
+                        <button type="submit" class="w-full py-2.5 rounded-xl bg-emerald hover:bg-emerald-dark text-obsidian font-orbitron text-xs font-bold uppercase tracking-wider transition-colors">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 font-rajdhani">
+                <p>&copy; 2026 NEXORA GAMING. All rights reserved. Powered by Solar-Mech Protocols.</p>
+                <div class="flex space-x-6 mt-4 sm:mt-0">
+                    <a href="#" class="hover:text-emerald">Security</a>
+                    <a href="#" class="hover:text-emerald">Terms</a>
+                    <a href="#" class="hover:text-emerald">API</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Modals -->
+    <!-- Game Modal -->
+    <div id="gameModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-obsidian/85 backdrop-blur-md hidden">
+        <div class="bio-glass rounded-3xl max-w-lg w-full p-6 sm:p-8 relative border border-amber/40 amber-glow animate-in fade-in zoom-in duration-200">
+            <button onclick="closeModal('gameModal')" class="absolute top-6 right-6 text-slate-400 hover:text-white"><i data-lucide="x" class="w-6 h-6"></i></button>
+            <div id="gameModalContent" class="space-y-6"></div>
+        </div>
+    </div>
+
+    <!-- News Modal -->
+    <div id="newsModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-obsidian/85 backdrop-blur-md hidden">
+        <div class="bio-glass rounded-3xl max-w-lg w-full p-6 sm:p-8 relative border border-emerald/40 emerald-glow animate-in fade-in zoom-in duration-200">
+            <button onclick="closeModal('newsModal')" class="absolute top-6 right-6 text-slate-400 hover:text-white"><i data-lucide="x" class="w-6 h-6"></i></button>
+            <div id="newsModalContent" class="space-y-4"></div>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div id="authModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-obsidian/85 backdrop-blur-md hidden">
+        <div class="bio-glass rounded-3xl max-w-md w-full p-8 relative border border-emerald/40 emerald-glow">
+            <button onclick="closeModal('authModal')" class="absolute top-6 right-6 text-slate-400 hover:text-white"><i data-lucide="x" class="w-6 h-6"></i></button>
+            <div class="text-center mb-6">
+                <h3 class="font-orbitron font-bold text-2xl text-white uppercase">NEURAL PASSPORT</h3>
+                <p class="text-xs text-slate-400 mt-1 font-rajdhani">Authenticate your bio-signature to access your operative dashboard.</p>
+            </div>
+            <form onsubmit="handleAuth(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-orbitron text-slate-300 uppercase mb-2">Operative ID / Email</label>
+                    <input type="text" required placeholder="kael@nexora.io" class="w-full px-4 py-3 rounded-xl bio-glass border border-emerald/30 text-sm text-white focus:outline-none focus:border-amber">
+                </div>
+                <div>
+                    <label class="block text-xs font-orbitron text-slate-300 uppercase mb-2">Encryption Key</label>
+                    <input type="password" required placeholder="••••••••" class="w-full px-4 py-3 rounded-xl bio-glass border border-emerald/30 text-sm text-white focus:outline-none focus:border-amber">
+                </div>
+                <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald to-amber text-obsidian font-orbitron text-xs font-bold uppercase tracking-wider emerald-glow hover:opacity-95 transition-all">
+                    Establish Link
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript Controllers -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        // Toast Notification System
+        function openToast(title, message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-title').innerText = title;
+            document.getElementById('toast-message').innerText = message;
+            toast.classList.remove('translate-y-32', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-32', 'opacity-0');
+            }, 3500);
+        }
+
+        // Modals
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+        }
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        // Game Filtering
+        function filterGames(category) {
+            const buttons = document.querySelectorAll('.game-filter-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-emerald', 'text-obsidian', 'emerald-glow');
+                btn.classList.add('bio-glass', 'text-slate-300');
+            });
+            event.target.classList.remove('bio-glass', 'text-slate-300');
+            event.target.classList.add('bg-emerald', 'text-obsidian', 'emerald-glow');
+
+            const cards = document.querySelectorAll('.game-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Open Game Details Modal
+        function openGameModal(title, description, image) {
+            const content = document.getElementById('gameModalContent');
+            content.innerHTML = `
+                <div class="relative h-64 rounded-2xl overflow-hidden mb-4">
+                    <img src="${image}" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent"></div>
+                </div>
+                <h3 class="font-orbitron font-bold text-2xl text-white uppercase">${title}</h3>
+                <p class="text-slate-300 text-sm font-poppins">${description}</p>
+                <div class="flex items-center justify-between pt-4 border-t border-emerald/20">
+                    <div class="flex items-center space-x-2 text-emerald text-xs font-orbitron">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald animate-pulse"></span>
+                        <span>Bio-Servers Online • 144 FPS Ready</span>
+                    </div>
+                    <button onclick="closeModal('gameModal'); openToast('Deploying Sector', '${title} initialization sequence started...');" class="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald to-amber text-obsidian font-orbitron text-xs font-bold uppercase emerald-glow hover:opacity-90">
+                        Launch Sector
+                    </button>
+                </div>
+            `;
+            openModal('gameModal');
+        }
+
+        // Open News Modal
+        function openNewsModal(title, text) {
+            const content = document.getElementById('newsModalContent');
+            content.innerHTML = `
+                <h3 class="font-orbitron font-bold text-xl text-white uppercase">${title}</h3>
+                <p class="text-slate-300 text-sm font-poppins leading-relaxed">${text}</p>
+                <p class="text-xs text-slate-400 italic pt-2 font-rajdhani">Decrypted from Nexora Intelligence Bureau.</p>
+                <button onclick="closeModal('newsModal')" class="w-full py-3 rounded-xl bg-emerald text-obsidian font-orbitron text-xs font-bold uppercase mt-4">Close Intel</button>
+            `;
+            openModal('newsModal');
+        }
+
+        // Tournament Registration
+        function registerTournament(name) {
+            openToast('Squad Enrolled!', `Successfully registered for ${name}. Prepare for combat.`);
+        }
+
+        // Newsletter Handler
+        function handleNewsletter(e) {
+            e.preventDefault();
+            openToast('Dispatch Linked!', 'You are now synced with Nexora Solar Dispatches.');
+            e.target.reset();
+        }
+
+        // Auth Handler
+        function handleAuth(e) {
+            e.preventDefault();
+            closeModal('authModal');
+            openToast('Neural Link Established!', 'Welcome back, Operative Kael.');
+        }
+
+        // Live Countdown Simulation
+        function updateCountdowns() {
+            let sec1 = 345000;
+            setInterval(() => {
+                sec1--;
+                let d = Math.floor(sec1 / (3600*24));
+                let h = Math.floor((sec1 % (3600*24)) / 3600);
+                let m = Math.floor((sec1 % 3600) / 60);
+                const el = document.getElementById('timer-1');
+                if(el) el.innerText = `${d}D : ${h}H : ${m}M`;
+            }, 1000);
+        }
+        updateCountdowns();
+    </script>
+</body>
+</html>
